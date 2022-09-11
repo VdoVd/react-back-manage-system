@@ -3,15 +3,14 @@ import './login.less'
 import logo from './img/logo.png'
 import { Button, Form, Input } from 'antd';
 import {UserOutlined,LockOutlined} from '@ant-design/icons'
-
  class Login extends Component{
 
     render() {
-        const onFinish = (events) => {
+        const onFinish = (values) => {
             // events.preventDefault()
             // this.props.form.validateFields((err,values)=>{
             //     if(!err){
-                    console.log('Received values of form: ', values);
+            console.log('Received values of form: ', values);
             //     }else {
             //         console.log('校验失败')
             //     }
@@ -76,7 +75,7 @@ import {UserOutlined,LockOutlined} from '@ant-design/icons'
                                             callback('密码长度不能小于4')
                                         }else if(value.length>12){
                                             callback('密码长度不能大于12')
-                                        }else if(/^[a-zA-Z0-9_]$/.test(value)){
+                                        }else if(/^[a-zA-Z0-9_]+$/.test(value)){
                                             callback('密码必须是英文,数字或下划线组成')
                                         }else{
                                             callback()
