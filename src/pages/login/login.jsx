@@ -1,17 +1,24 @@
 import React from "react";
 import './login.less'
 import logo from './img/logo.png'
-import {  useNavigate } from "react-router-dom";
+import {Navigate, useNavigate} from "react-router-dom";
 import { Button, Form, Input,message } from 'antd';
 import {UserOutlined,LockOutlined} from '@ant-design/icons'
-import {reLogin} from "../api/index";
+import {reLogin} from "../../api/index";
 import memoryUtils from "../../utils/memoryUtils";
+import storageUtils from '../../utils/sorageUtils'
+
 const Login=(props)=> {
+    const [form] = Form.useForm();
     const history =  useNavigate ()
     const handleGoTo = () => {
         history('/')
     }
-    const [form] = Form.useForm();
+    const user=memoryUtils.user
+    if(user&&user._id){
+        return <Navigate to="/"  />
+    }
+
     const onCheck = async (props) => {
         try {
             const values =await form.validateFields();
@@ -21,6 +28,7 @@ const Login=(props)=> {
                 message.success('登陆成功')
                 const user=response.data
                 memoryUtils.user=user
+                storageUtils.saveUser(user)
                 handleGoTo()
             }else {
                 message.error(response.msg)
