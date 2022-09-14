@@ -18,6 +18,7 @@ import Line from "../charts/Line";
 import Pie from "../charts/pie";
 import Order from "../Order/Order";
 import Charts from "../charts/charts";
+import Products from "../products/products";
 // import {  useNavigate } from "react-router-dom";;
 const {  Footer, Sider, Content } = Layout;
 const Admin = (props) => {
@@ -38,12 +39,12 @@ const Admin = (props) => {
             <Layout>
                 <Head>Header</Head>
                 <Content style={{backgroundColor: '#fff',margin:20}}>
-
                         <Routes>
                             {/*<Route path='/' element={<Admin />}></Route>*/}
                             <Route path='/home'  element={<Home />}></Route>
                             <Route path='/category' element={<Category/>}/>
-                            <Route path='/products' element={<Product/>}/>
+                            <Route path='/products' element={<Products/>}/>
+                            <Route path='/product' element={<Product/>}/>
                             <Route path='/user' element={<User/>}/>
                             <Route path='/role' element={<Role/>}/>
                             <Route path='/charts' element={<Charts/>}/>

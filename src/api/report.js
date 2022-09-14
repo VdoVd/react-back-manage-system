@@ -9,12 +9,12 @@ export const reqAddUser=(user)=>ajax(BASE+'/manage/user/add',user,'POST')
 
 export const reqWeather=()=> {
     return new Promise((resolve, reject)=>{
-        const url='https://devapi.qweather.com/v7/weather/now?location=101010100&key=321f5d7f1a2d494eb6cf56cdfd9027c7'
+        const url='https://api.map.baidu.com/weather/v1/?district_id=222405&data_type=all&ak=Km6HszSrDtjg4DZ2nxnYDC30dhc4wGaV'
         jsonp(url,{},(err,data)=>{
             console.log('jsonp()',err,data)
-            if(!err&&data.status==='200'){
-                const {obsTime,text}=data.now
-                resolve(obsTime,text)
+            if(!err&&data.status===0){
+                const text=data.result.now.text
+                resolve(text)
             }else {
                 message.error('获取天气信息失败')
             }
@@ -22,3 +22,4 @@ export const reqWeather=()=> {
     })
 
 }
+export default reqWeather()

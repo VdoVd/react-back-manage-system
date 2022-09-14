@@ -16,64 +16,85 @@ const menuList = [
      icon: <HomeFilled />,
      children: undefined,
      label: <Link to='/home' style={{color:"#ffffffA4"}}>首页</Link>,
-     type: undefined
+     type: undefined,
+     title:'首页'
    },
    {
-     label: <Link to='/products'  style={{color:"#ffffffA4"}}>商品</Link>,
      key: '/products',
+     label: <Link to='/products'  style={{color:"#ffffffA4"}}>商品</Link>,
+
      icon:  <ShopOutlined />,
+     title:'商品',
      children: [ // 子菜单列表
        {
-         label:<Link to='/category'  style={{color:"#ffffffA4"}}>品类管理</Link>,
          key: '/category',
-         icon: <ShoppingCartOutlined />
+         label:<Link to='/category'  style={{color:"#ffffffA4"}}>品类管理</Link>,
+
+         icon: <ShoppingCartOutlined />,
+         title: '品类管理'
        },
        {
-         label: <Link to='/product'  style={{color:"#ffffffA4"}}>商品管理</Link>,
          key: '/product',
-         icon: <ShoppingOutlined />
+         label: <Link to='/product'  style={{color:"#ffffffA4"}}>商品管理</Link>,
+
+         icon: <ShoppingOutlined />,
+         title: '商品管理'
        },
      ]
    },
 
    {
-     label: <Link to='/user'  style={{color:"#ffffffA4"}}>用户管理</Link>,
      key: '/user',
-     icon: <UserOutlined />
+     label: <Link to='/user'  style={{color:"#ffffffA4"}}>用户管理</Link>,
+
+     icon: <UserOutlined />,
+     title: '用户管理'
    },
    {
-     label: <Link to='/role'  style={{color:"#ffffffA4"}}>角色管理</Link>,
      key: '/role',
+     label: <Link to='/role'  style={{color:"#ffffffA4"}}>角色管理</Link>,
+
      icon: <UserOutlined />,
+     title: '角色管理'
    },
 
    {
-     label: '图表图形',
      key: '/charts',
+     label: '图表图形',
+
      icon: <CalculatorFilled  />,
+     title: '图表图形',
      children: [
        {
-         label: <Link to='/charts/bar'  style={{color:"#ffffffA4"}}>柱形图</Link>,
          key: '/charts/bar',
-         icon: <BarChartOutlined />
+         label: <Link to='/charts/bar'  style={{color:"#ffffffA4"}}>柱形图</Link>,
+
+         icon: <BarChartOutlined />,
+         title: '柱形图'
        },
        {
-         label: <Link to='/charts/line' style={{color:"#ffffffA4"}}>折线图</Link>,
          key: '/charts/line',
-         icon: <LineChartOutlined />
+         label: <Link to='/charts/line' style={{color:"#ffffffA4"}}>折线图</Link>,
+
+         icon: <LineChartOutlined />,
+         title: '折线图'
        },
        {
-         label: <Link to='/charts/pie'  style={{color:"#ffffffA4"}}>饼图</Link>,
          key: '/charts/pie',
-         icon: <PieChartOutlined />
+         label: <Link to='/charts/pie'  style={{color:"#ffffffA4"}}>饼图</Link>,
+
+         icon: <PieChartOutlined />,
+         title: '饼图'
        },
      ]
    },
 
    {
-     label: <Link to='/order'  style={{color:"#ffffffA4"}}>订单管理</Link>,
      key: '/order',
-     icon: <ContainerOutlined />
+     label: <Link to='/order'  style={{color:"#ffffffA4"}}>订单管理</Link>,
+
+     icon: <ContainerOutlined />,
+     title: '订单管理'
    }
 ]
 
