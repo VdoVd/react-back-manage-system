@@ -3,9 +3,9 @@ import './index.less'
 import formatDate from '../../utils/dateUtils'
 import report from './img/reporter.webp'
 import memoryUtils from "../../utils/memoryUtils";
-import {Navigate, useLocation, useNavigate} from "react-router-dom";
+import { useLocation, useNavigate} from "react-router-dom";
 import menuList from "../../config/menuConfig";
-import {Button,Modal, Space} from "antd";
+import {Modal, Space} from "antd";
 import {ExclamationCircleOutlined} from "@ant-design/icons";
 import storageUtils from "../../utils/sorageUtils";
 import LinkButton from "../button/button";
