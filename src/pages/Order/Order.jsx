@@ -1,7 +1,16 @@
 import React from "react";
-const Order=()=>{
+import Son from "../../components/testComponents/Son";
+import Parent from "./test";
+import Father from "../../components/testComponents/Father";
+const Order=(props)=>{
+    const msg='oevin'
+    const value='vibdr'
+
     return(
-        <div>order</div>
+        <div>
+            <Parent />
+            <Father />
+        </div>
     )
 }
 export default Order

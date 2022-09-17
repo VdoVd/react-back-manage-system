@@ -1,13 +1,16 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {Button, Card, Table, message, Modal} from "antd";
 import {ArrowRightOutlined, PlusOutlined} from "@ant-design/icons";
 import LinkButton from "../../components/button/button";
-import {reqCategory} from "../../api";
+import {reqCategory, reqUpdateCategory} from "../../api";
 import AddForm from "../../components/addForm/AddForm";
+import UpdateForm from "../../components/updateForm/UpdateForm";
 
 
 const Category=()=>{
-
+    const [name,Setname]=useState('')
+    const [id,SetId]=useState()
+    const [curCategory,SetCurCategory]=useState()
     const [colmuns,SetColmuns]=useState([
         {
             title: '分类的名称',
@@ -18,9 +21,11 @@ const Category=()=>{
             width: '300px',
             render:(category)=>(
                 <span>
-                    <LinkButton>修改分类</LinkButton>
+                    <LinkButton onclick={(category)=>{
+                        SetId(category._id)
+                        showUpdate(category)
+                    }}>修改分类</LinkButton>
                     <LinkButton onClick={()=>{showSubCategory(category)
-                        console.log('linkbutton onclick-----',category)
                     }}>查看子分类</LinkButton>
                 </span>
             )
@@ -32,6 +37,8 @@ const Category=()=>{
     const [subCategory,SetSubCategory]=useState()
     const [categories,SetCatesgories]=useState([])
     const [showStatus,SetShowStatus]=useState(0)
+    const [form,SetForm]=useState()
+    const [text,SetText]=useState('未设置')
     const showModal = () => {
         setIsModalOpen(true);
     };
@@ -41,15 +48,12 @@ const Category=()=>{
             添加
         </Button>
     )
-    useEffect(()=>{})
     useEffect(()=>{
         SetColmuns(columnsArray)
     },[parentId])
-
     const handleOk=()=> {
-
     }
-
+    const buttonRef = useRef()
     const getCategorys=async (parentId)=>{
         const result=await reqCategory(parentId)
         // setLoading(false)
@@ -67,10 +71,10 @@ const Category=()=>{
             message.error('获取分类列表失败')
         }
     }
-
     const showSubCategory=(categories)=>{
             setparentId(categories._id)
             SetParentName(categories.name)
+            console.log(categories.name,categories._id)
             getCategorys(parentId)
     }
     useEffect(()=>{
@@ -91,8 +95,10 @@ const Category=()=>{
     const showAdd=()=>{
         SetShowStatus(1)
     }
-    const showUpdate=()=>{
-
+    const showUpdate=(category)=>{
+        SetCurCategory(category)
+        SetShowStatus(2)
+        console.log()
     }
     const handleCancel=()=>{
         SetShowStatus(0)
@@ -100,8 +106,17 @@ const Category=()=>{
     const addCategory=()=>{
         console.log('addCategory()')
     }
-    const updateCategory=()=>{
-        console.log('addCategory()')
+    const updateCategory=async ()=>{
+        const id=curCategory._id
+        console.log(id,'id')
+        console.log(text,'text')
+        console.log(form,'form')
+        SetShowStatus(0)
+        const result=await reqUpdateCategory({id,text})
+        console.log(result,'result')
+        if(result.status===0){
+            getCategorys(parentId)
+        }
     }
     const columnsArray=[
         {
@@ -113,7 +128,7 @@ const Category=()=>{
             width: '300px',
             render:(category)=>(
                 <span>
-                    <LinkButton>修改分类</LinkButton>
+                    <LinkButton onClick={()=>{showUpdate(category)}}>修改分类</LinkButton>
                     <LinkButton onClick={()=>{showSubCategory(category)
                         console.log('linkbutton onclick-----',category)
                     }}>查看子分类</LinkButton>
@@ -121,6 +136,11 @@ const Category=()=>{
             )
         }
     ]
+    const handleInput=(text)=>{
+        Setname(text)
+        console.log('handleInput','name',text)
+    }
+    console.log(text,'text')
     return(
         <Card
             title={title}
@@ -137,14 +157,9 @@ const Category=()=>{
                 <AddForm />
             </Modal>
             <Modal title="更新分类" open={showStatus===2} onOk={updateCategory} onCancel={handleCancel}>
-                <p>Some contents...</p>
-                <p>Some contents...</p>
-                <p>Some contents...</p>
+                <UpdateForm  SetForm={SetForm} SetText={SetText}/>
             </Modal>
             <Modal title="删除分类" open={false} onOk={handleOk} onCancel={handleCancel}>
-                <p>Some contents...</p>
-                <p>Some contents...</p>
-                <p>Some contents...</p>
             </Modal>
         </Card>
     )
