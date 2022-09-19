@@ -2,7 +2,7 @@ import React from 'react';
 import {Layout} from 'antd';
 // import {Switch} from "antd";
 import memoryUtils from "../../utils/memoryUtils";
-import {Navigate} from "react-router-dom";
+import {Navigate, Outlet} from "react-router-dom";
 import {Route,Routes} from 'react-router-dom'
 import Head from "../../components/header/header";
 import LeftNav from "../../components/left nav/left-nav";
@@ -19,6 +19,7 @@ import Pie from "../charts/pie";
 import Order from "../Order/Order";
 import Charts from "../charts/charts";
 import Products from "../products/products";
+import ProductHome from "../product/home";
 // import {  useNavigate } from "react-router-dom";;
 const {  Footer, Sider, Content } = Layout;
 const Admin = (props) => {
@@ -44,7 +45,7 @@ const Admin = (props) => {
                             <Route path='/home'  element={<Home />}></Route>
                             <Route path='/category' element={<Category/>}/>
                             <Route path='/products' element={<Products/>}/>
-                            <Route path='/product' element={<Product/>}/>
+                            <Route path='/product/*' element={<Product/>}/>
                             <Route path='/user' element={<User/>}/>
                             <Route path='/role' element={<Role/>}/>
                             <Route path='/charts' element={<Charts/>}/>
