@@ -7,7 +7,7 @@ const Product=()=>{
     return(
 		<div>
         <Routes>
-			<Route path='/addupdate' element={<ProductAddUpdate />}/>
+			<Route path='/addupdate/:isUpdate' element={<ProductAddUpdate />}/>
 			<Route path='/detail' element={<ProductDetail />}/>
 			<Route path="/"  element={<ProductHome />}/>
 		</Routes>

@@ -95,7 +95,11 @@ const menuList = [
 
      icon: <ContainerOutlined />,
      title: '订单管理'
-   }
+   },
+  {
+    key: '/product/addupdate',
+    title: '添加商品'
+  }
 ]
 
 export default menuList

@@ -16,7 +16,7 @@ import {
 } from '@ant-design/icons';
 import {  Menu} from 'antd';
 // import { useState } from 'react';
-import {Link} from "react-router-dom";
+import {Link, useLocation} from "react-router-dom";
 // function getItem(label, key, icon, children, type) {
 //     return {
 //         key,
@@ -63,14 +63,11 @@ import {Link} from "react-router-dom";
 // ];
 // const path=menuList.map((n)=>n.key)
 const LeftNav=()=> {
-    // const [collapsed, setCollapsed] = useState(false);
-
-    // const toggleCollapsed = () => {
-    //     setCollapsed(!collapsed);
-    // };
-    // const item=Menu.Item
-    // const key=Menu.SubMenu.name
-    // console.log(typeof item)
+    const location = useLocation();
+    let { pathname } = location;
+    if(pathname==='/product*'){
+        pathname='/product'
+    }
     return (
         <div className="left-nav">
             <Link to='/' className="left-nav-header">
