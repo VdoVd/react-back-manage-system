@@ -1,14 +1,15 @@
 import React from "react";
-import {Routes, Route, Navigate} from 'react-router-dom';
+import {Routes, Route, useNavigate} from 'react-router-dom';
 import ProductHome from "./home";
 import ProductAddUpdate from './add-update'
 import ProductDetail from './detail'
+import './product.less'
 const Product=()=>{
     return(
-		<div>
+		<div className="overflow">
         <Routes>
-			<Route path='/addupdate/:isUpdate' element={<ProductAddUpdate />}/>
-			<Route path='/detail' element={<ProductDetail />}/>
+			<Route path='/addupdate/:isUpdate/:product' element={<ProductAddUpdate />}/>
+			<Route path='/detail/:product' element={<ProductDetail />}/>
 			<Route path="/"  element={<ProductHome />}/>
 		</Routes>
 		</div>

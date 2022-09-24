@@ -79,6 +79,7 @@ const Login=(props)=> {
                         name="password"
                         rules={[
                             {
+                                //自定义验证
                                 // required: true,
                                 // message: 'Please input your Password!',
                                 validator: (rule, value, callback) => {

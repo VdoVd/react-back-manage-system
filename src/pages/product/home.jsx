@@ -5,7 +5,7 @@ import Icon from "antd/es/icon";
 import LinkButton from "../../components/button/button";
 import {reqCategorys, reqProducts, reqSearchProducts, reqUpdateStatus} from "../../api";
 import {PAGE_SIZE} from "../../utils/contextUtils";
-import {useNavigate} from "react-router-dom";
+import {createSearchParams, useNavigate} from "react-router-dom";
 const ProductHome=()=>{
     const [datasource,SetDatasource] = useState([])
     const [columns,SetColumns] =useState([])
@@ -56,7 +56,7 @@ const ProductHome=()=>{
         }
     }
     const history =  useNavigate ()
-    const handleGoTo = (str,product) => {
+    const handleGoTo = (str) => {
         history( str)
     }
 
@@ -103,11 +103,11 @@ const ProductHome=()=>{
                         return (
                             <span>
               {/*将product对象使用state传递给目标路由组件*/}
-                                <LinkButton onClick={() =>handleGoTo('/product/detail', {state:product})}>详情</LinkButton>
-              <LinkButton onClick={() =>handleGoTo('/product/addupdate/'+1)}>修改</LinkButton>
+                                <LinkButton onClick={() =>handleGoTo('/detail/'+{})}>详情</LinkButton>
+              <LinkButton onClick={() =>handleGoTo('/product/addupdate/'+1+'/'+product)}>修改</LinkButton>
             </span>
                         )
-                                },
+                    },
                 }
             ]
         )
@@ -116,7 +116,7 @@ const ProductHome=()=>{
         getProducts(1)
     },[])
     const extra = (
-        <Button type='primary' onClick={()=>handleGoTo('/product/addupdate/'+0 )}>
+        <Button type='primary' onClick={()=>handleGoTo('/product/addupdate/'+0+'/'+{} )}>
             <Icon type='plus'/>
             添加商品
         </Button>
