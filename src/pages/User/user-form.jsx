@@ -1,12 +1,10 @@
 import React from 'react'
 import {
-  Form,
-  Select,
-  Input
+    Form,
+    Select,
+    Input
 } from 'antd'
 import {useForm} from "antd/es/form/Form";
-
-const Item = Form.Item
 const Option = Select.Option
 
 /*
@@ -14,74 +12,115 @@ const Option = Select.Option
  */
 const UserForm=(props)=>  {
     const [form]=useForm()
+    const onFinish = (values) => {
+        console.log('Success:', values);
+    };
+
+    const onFinishFailed = (errorInfo) => {
+        console.log('Failed:', errorInfo);
+    };
     props.setForm(form)
-    const {roles, user} =props
-    const { getFieldDecorator } =props.form
-    // 指定Item布局的配置对象
-    const formItemLayout = {
-      labelCol: { span: 4 },  // 左侧label的宽度
-      wrapperCol: { span: 15 }, // 右侧包裹的宽度
+    let user
+    if(props.user===null){
+        user=1
+    }else {
+        user = props.user
     }
-
+    const roles=props.roles
     return (
-      <Form form={form}>
-        <Item label='用户名'>
-          {
-            getFieldDecorator('username', {
-              initialValue: user.username,
-            })(
-              <Input placeholder='请输入用户名'/>
-            )
-          }
-        </Item>
+        <Form
+            form={form}
+            name="basic"
+            labelCol={{
+                span: 8,
+            }}
+            wrapperCol={{
+                span: 16,
+            }}
+            initialValues={{
+                remember: true,
+            }}
+            onFinish={onFinish}
+            onFinishFailed={onFinishFailed}
+            autoComplete="off"
+        >
+            <Form.Item
+                label="用户名"
+                name="username"
+                rules={[
+                    {
+                        required: true,
+                        message: '请输入用户名',
+                    },
+                ]}
+                initialValue={user===1?'':user.username}
+            >
 
-        {
-          user._id ? null : (
-            <Item label='密码'>
-              {
-                getFieldDecorator('password', {
-                  initialValue: user.password,
-                })(
-                  <Input type='password' placeholder='请输入密码'/>
-                )
-              }
-            </Item>
-          )
-        }
+                <Input />
+            </Form.Item>
 
-        <Item label='手机号'>
-          {
-            getFieldDecorator('phone', {
-              initialValue: user.phone,
-            })(
-              <Input placeholder='请输入手机号'/>
-            )
-          }
-        </Item>
-        <Item label='邮箱'>
-          {
-            getFieldDecorator('email', {
-              initialValue: user.email,
-            })(
-              <Input placeholder='请输入邮箱'/>
-            )
-          }
-        </Item>
+            <Form.Item
+                label="密码"
+                name="password"
+                rules={[
+                    {
+                        required: true,
+                        message: '请输入密码!',
+                    },
+                ]}
+                initialValue={user===1?'':user.password}
+            >
+                <Input.Password />
+            </Form.Item>
+            <Form.Item
+                label="手机号"
+                name="phone"
+                rules={[
+                    {
+                        required: true,
+                        message: '请输入手机号码',
+                    },
+                ]}
+                initialValue={user===1?'':user.phone}
+            >
+                <Input/>
+            </Form.Item>
+            <Form.Item
+                label="邮箱"
+                name="email"
+                rules={[
+                    {
+                        required: true,
+                        message: '请输入邮箱',
+                    },
+                ]}
+                initialValue={user===1?'':user.email}
+            >
+                <Input />
+            </Form.Item>
+            <Form.Item
+                label="角色"
+                name="role_id"
+                rules={[
+                    {
+                        required: true,
+                        message: '请输入角色',
+                    },
+                ]}
+                initialValue={user===1?'':user.role_id}
+            >
+                <Select
+                    placeholder="Select a option and change input text above"
+                    // onChange={onGenderChange}
+                    allowClear
 
-        <Item label='角色'>
-          {
-            getFieldDecorator('role_id', {
-              initialValue: user.role_id,
-            })(
-              <Select>
-                {
-                  roles.map(role => <Option key={role._id} value={role._id}>{role.name}</Option>)
-                }
-              </Select>
-            )
-          }
-        </Item>
-      </Form>
+                >
+                    {
+                        roles.map(role => <Option key={role._id} value={role._id}>{role.name}</Option>)
+                    }
+                </Select>
+            </Form.Item>
+        </Form>
     )
   }
 export default UserForm

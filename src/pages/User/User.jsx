@@ -6,11 +6,13 @@ import formatDate from "../../utils/dateUtils";
 import UserForm from "./user-form";
 
 const User=()=>{
-    const [user,SetUsers]=useState([])
+    const [users,SetUsers]=useState([])
+    const [user,SetUser]=useState()
     const [roles,SerRoles]=useState([])
     const [isShow,SetIsShow]=useState(false)
     const [form,setForm]=useState()
     const [roleNames,SetRoleNames]=useState()
+    const [id,SetId]=useState(-1)
     const initRoleNames = (roles) => {
         const roleNames = roles.reduce((pre, role) => {
             pre[role._id] = role.name
@@ -24,7 +26,7 @@ const User=()=>{
     显示添加界面
      */
    const showAdd = () => {
-        SetUsers(null)
+        SetUser(null)
         SetIsShow(true)
     }
 
@@ -32,7 +34,7 @@ const User=()=>{
     显示修改界面
      */
     const showUpdate = (user) => {
-        SetUsers(user)
+        SetUser(user)
         SetIsShow(true)
     }
 
@@ -57,18 +59,21 @@ const User=()=>{
      */
     const addOrUpdateUser = async () => {
 
-        this.setState({isShow: false})
+        SetIsShow(false)
 
         // 1. 收集输入数据
-        const user = form.getFieldsValue()
+        const u = form.getFieldsValue()
+        console.log(u,'user')
         form.resetFields()
         // 如果是更新, 需要给user指定_id属性
-        if (user) {
-            user._id = this.user._id
-        }
-
         // 2. 提交添加的请求
-        const result = await reqAddOrUpdateUser(user)
+        let result
+        if(user){
+            user._id=id
+             result = await reqAddOrUpdateUser(user)
+        }else {
+             result = await reqAddOrUpdateUser(u)
+        }
         // 3. 更新列表显示
         if(result.status===0) {
             message.success(`${user ? '修改' : '添加'}用户成功`)
@@ -113,7 +118,11 @@ const User=()=>{
             title: '操作',
             render: (user) => (
                 <span>
-            <LinkButton onClick={() =>showUpdate(user)}>修改</LinkButton>
+            <LinkButton onClick={() =>{
+                showUpdate(user)
+                SetId(user._id)
+                console.log(user,'user')
+            }}>修改</LinkButton>
             <LinkButton onClick={() =>deleteUser(user)}>删除</LinkButton>
           </span>
             )
@@ -128,20 +137,15 @@ const User=()=>{
             <Table
                 bordered
                 rowKey='_id'
-                dataSource={user}
+                dataSource={users}
                 columns={columns}
                 pagination={{defaultPageSize: 2}}
             />
 
-            <Modal
-                title={user._id ? '修改用户' : '添加用户'}
-                open={isShow}
-                onOk={addOrUpdateUser}
-                onCancel={() => {
-                    form.resetFields()
-                    SetIsShow(false)
-                }}
-            >
+            <Modal title={id<0?'创建用户':'修改用户'} open={isShow} onOk={addOrUpdateUser} onCancel={()=>{
+                form.resetFields()
+                SetIsShow(false)
+            }}>
                 <UserForm
                     setForm={setForm}
                     roles={roles}
