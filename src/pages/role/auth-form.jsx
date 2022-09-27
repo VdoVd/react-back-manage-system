@@ -6,6 +6,7 @@ import Item from "antd/es/list/Item";
 const AuthForm=(props)=>{
     const menus=props.role
     const {TreeNode}=Tree
+    const [treeNodes,SetTreeNodes]=useState()
     const [nextProps,SetNextProps]=useState()
     const [checkKays,SetKedKeys]=useState(menus)
     const getMenus=()=>checkKays
@@ -24,7 +25,7 @@ const AuthForm=(props)=>{
         SetKedKeys({checkKays})
     }
     useEffect(()=>{
-        SetKedKeys(getTreeNodes(menuList))
+        SetTreeNodes(getTreeNodes(menuList))
     },[])
     useEffect(()=>{
         SetKedKeys(menus)
@@ -46,7 +47,7 @@ const AuthForm=(props)=>{
                 onCheck={onCheck}
                 />
             <TreeNode title="平台权限" key="all">
-                {tree}
+                {treeNodes}
             </TreeNode>
         </div>
     )

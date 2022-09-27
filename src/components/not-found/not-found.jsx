@@ -1,6 +1,6 @@
 import {Button, Col, Row} from "antd";
 import {useNavigate} from "react-router-dom";
-
+import './notfound.less'
 const NotFound=()=>{
     const navigetor=useNavigate()
     return(

@@ -4,9 +4,11 @@ import {Form, Input} from "antd";
 const AddRoleForm=(props)=>{
     const [form]=useForm()
     props.SetForm(form)
+    // console.log(form.getFieldsValue,'add')
     return(
         <Form form={form}>
             <Form.Item
+                name='roleName'
             initialValue=''
             rules={[{ required: true, message: '角色名称必须输入!' }]}
                 >

@@ -10,7 +10,11 @@ import AddRoleForm from "./add-form";
 import AuthForm from "./auth-form";
 const Role=()=>{
     const [roles,SetRoles]=useState()
-    const [role,SetRole]=useState()
+    const [role,SetRole]=useState(
+        {
+            _id:null,
+            name:''
+    })
     const [isShowAdd,SetIsShowAdd]=useState(false)
     const [isShowAuth,SetIsShowAuth]=useState(false)
     const [columns,SetColumns]=useState()
@@ -31,22 +35,22 @@ const Role=()=>{
             }
         }
     }
-    const addRole=async ()=>{
-        form.validateFields(async (error,values)=>{
-            if(!error){
-                SetIsShowAdd(false)
-            }
-            const [roleName]=values
-            form.resetFields()
-            const res=await reqAddRole(roleName)
-            if(res.satus===0){
-                message.success('添加角色成功')
-                const role=res.data
-                SetRoles([...roles,role])
-            }else {
-                message.success('添加角色失败')
-            }
-        })
+    const addRole= async ()=>{
+        console.log('add role')
+        const roleName=form.getFieldsValue().roleName
+        // console.log(values,'name')
+        // console.log(roleName,'rolename')
+        form.resetFields()
+        const res=await reqAddRole(roleName)
+        console.log('res',res)
+        if(res.status===0){
+            message.success('添加角色成功')
+            const role=res.data
+            SetRoles([...roles,role])
+        }else {
+            message.success('添加角色失败',res)
+        }
+
     }
     const navigetor=useNavigate()
     const updateRole=async ()=>{
@@ -68,6 +72,7 @@ const Role=()=>{
                 message.success('设置角色权限成功')
             }
         }
+        SetIsShowAdd(false)
     }
     useEffect(()=>{
         SetColumns([
@@ -95,7 +100,7 @@ const Role=()=>{
     const title = (
         <span>
         <Button type='primary' onClick={() => SetIsShowAdd(true)}>创建角色</Button> &nbsp;&nbsp;
-            <Button type='primary'  onClick={() => SetIsShowAuth(true)}>设置角色权限</Button>
+            <Button type='primary' disabled={!role._id} onClick={() => SetIsShowAuth(true)}>设置角色权限</Button>
       </span>
     )
     return(
@@ -106,6 +111,15 @@ const Role=()=>{
                 bordered
                 rowKey='_id'
                 pagination={{defaultPageSize:PAGE_SIZE}}
+                rowSelection={{
+                    type: 'radio',
+                    selectedRowKeys: [role._id],
+                    onSelect: (role) => { // 选择某个radio时回调
+                       SetRole(role)
+                    }
+
+                }}
+                onRow={onRow}
             />;
             <Modal title="添加角色" open={isShowAdd} onOk={addRole} onCancel={()=>{
                 SetIsShowAdd(false)
