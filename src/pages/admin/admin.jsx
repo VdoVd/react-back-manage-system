@@ -20,6 +20,7 @@ import Order from "../Order/Order";
 import Charts from "../charts/charts";
 import Products from "../products/products";
 import ProductHome from "../product/home";
+import NotFound from "../../components/not-found/not-found";
 // import {  useNavigate } from "react-router-dom";;
 const {  Footer, Sider, Content } = Layout;
 const Admin = (props) => {
@@ -54,7 +55,7 @@ const Admin = (props) => {
                             <Route path="/charts/line" element={<Line/>}/>
                             <Route path="/order" element={<Order />}/>
                             <Route path='/pie' element={<Pie />}/>
-                            <Route path="*" element={<Navigate to="/home" replace />} />
+                            <Route path="*" element={<NotFound />} />
                         </Routes>
 
                     {/*<Switch>*/}
