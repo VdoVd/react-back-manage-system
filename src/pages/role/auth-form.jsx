@@ -51,3 +51,4 @@ const AuthForm=(props)=>{
         </div>
     )
 }
+export default AuthForm

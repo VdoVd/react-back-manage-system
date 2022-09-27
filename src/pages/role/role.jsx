@@ -7,6 +7,7 @@ import formatDat from '../../utils/dateUtils'
 import {useNavigate} from "react-router-dom";
 import {PAGE_SIZE} from "../../utils/contextUtils";
 import AddRoleForm from "./add-form";
+import AuthForm from "./auth-form";
 const Role=()=>{
     const [roles,SetRoles]=useState()
     const [role,SetRole]=useState()
@@ -94,13 +95,7 @@ const Role=()=>{
     const title = (
         <span>
         <Button type='primary' onClick={() => SetIsShowAdd(true)}>创建角色</Button> &nbsp;&nbsp;
-            <Button type='primary' disabled={()=>{
-                if(role._id===null){
-                    return false
-                }else {
-                    return true
-                }
-            }} onClick={() => SetIsShowAuth(true)}>设置角色权限</Button>
+            <Button type='primary'  onClick={() => SetIsShowAuth(true)}>设置角色权限</Button>
       </span>
     )
     return(
@@ -117,15 +112,16 @@ const Role=()=>{
                 form.resetFields()
             }}>
                 <AddRoleForm
-                    setForm={SetForm}
+                    SetForm={SetForm}
                 />
             </Modal>
             <Modal title="设置角色权限" open={isShowAuth} onOk={updateRole} onCancel={()=>{
                 SetIsShowAuth(false)
             }}>
-                <AddRoleForm
+                <AuthForm
                     ref={auth}
                     role={role}
+                    SetForm={SetForm}
                 />
             </Modal>
         </Card>
