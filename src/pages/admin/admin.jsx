@@ -55,6 +55,7 @@ const Admin = (props) => {
                             <Route path="/charts/line" element={<Line/>}/>
                             <Route path="/order" element={<Order />}/>
                             <Route path='/pie' element={<Pie />}/>
+                            <Route path='/' element={<Home />}/>
                             <Route path="*" element={<NotFound />} />
                         </Routes>
 
