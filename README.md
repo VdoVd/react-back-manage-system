@@ -2,9 +2,9 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-##server is the server dir
-you need to run cd server \
-install mongodb local \
+## server is the server dir.
+you need to run cd server. \
+install mongodb local. \
 and run:
 ### `npm run start`
 to connect mongodb
